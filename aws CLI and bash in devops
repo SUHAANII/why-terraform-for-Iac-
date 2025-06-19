@@ -1,0 +1,28 @@
+# 💻 Using AWS CLI and Bash in DevOps
+
+## 🧠 What is AWS CLI?
+
+AWS CLI (Command Line Interface) is a tool that allows you to interact with AWS services from your terminal or shell. It lets you control AWS resources using commands instead of the web interface.
+
+### ✅ Key Benefits:
+- Automate repetitive tasks
+- Manage infrastructure directly from your terminal
+- Combine commands in scripts to build DevOps workflows
+- Works well with CI/CD pipelines
+
+### 📦 Common AWS CLI Commands:
+```bash
+# Configure AWS credentials
+aws configure
+
+# Create an S3 bucket
+aws s3 mb s3://my-bucket-name
+
+# Upload a file to S3
+aws s3 cp index.html s3://my-bucket-name/
+
+# List EC2 instances
+aws ec2 describe-instances
+
+# Start an EC2 instance
+aws ec2 start-instances --instance-ids i-1234567890abcdef0
