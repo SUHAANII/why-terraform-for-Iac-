@@ -26,3 +26,107 @@ aws ec2 describe-instances
 
 # Start an EC2 instance
 aws ec2 start-instances --instance-ids i-1234567890abcdef0
+
+MORE INFORMATION: 
+
+🐚 What is Bash?
+Bash (Bourne Again Shell) is a command-line shell used on Unix/Linux systems. It's commonly used in DevOps to:
+
+Write scripts to automate tasks
+
+Run command-line tools like Terraform, Git, AWS CLI, etc.
+
+Manage deployments and system operations
+
+✍️ Bash Script Example:
+bash
+Copy
+Edit
+#!/bin/bash
+echo "Uploading files to S3..."
+aws s3 cp ./site/ s3://my-bucket-name/ --recursive
+echo "Deployment complete."
+🧩 Why It Matters in DevOps
+CLI + Bash = full control over your infrastructure.
+
+Combine with IaC tools like Terraform for powerful automation.
+
+Essential for scripting and DevOps pipelines.
+
+yaml
+Copy
+Edit
+
+---
+
+### 📄 `terraform_aws_s3_website.md`
+
+```markdown
+# 🌐 Hosting a Website using Terraform and AWS S3
+
+This guide explains how to host a simple static website on AWS S3 using Terraform — a perfect starting point for DevOps beginners!
+
+---
+
+## 🧾 Prerequisites
+
+- AWS Account
+- Terraform installed
+- AWS CLI installed and configured (`aws configure`)
+- A simple `index.html` file
+
+---
+
+## 📁 Project Structure
+
+project-folder/
+│
+├── main.tf # Terraform configuration
+└── index.html # Your website homepage
+
+bash
+Copy
+Edit
+
+---
+
+## 🔧 Terraform Code (`main.tf`)
+
+```hcl
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_s3_bucket" "static_site" {
+  bucket = "suhani-static-site-demo"
+  acl    = "public-read"
+
+  website {
+    index_document = "index.html"
+    error_document = "error.html"
+  }
+}
+
+resource "aws_s3_bucket_object" "index" {
+  bucket       = aws_s3_bucket.static_site.id
+  key          = "index.html"
+  source       = "index.html"
+  acl          = "public-read"
+  content_type = "text/html"
+}
+🚀 Steps to Deploy
+bash
+Copy
+Edit
+terraform init      # Initialize Terraform
+terraform apply     # Apply your configuration
+Type yes when prompted to create resources.
+
+🌍 Access Your Website
+Once deployed, open the website URL:
+
+arduino
+Copy
+Edit
+http://suhani-static-site-demo.s3-website-us-east-1.amazonaws.com
+
