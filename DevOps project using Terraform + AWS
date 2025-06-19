@@ -1,0 +1,136 @@
+🏁 Goal:
+Create and host a simple static website (like an HTML page) using:
+
+✅ AWS S3 (to store website files)
+
+✅ Terraform (to write and manage everything as code)
+
+💻 Project Overview: What You’ll Do
+Step	Task
+1️⃣	Set up AWS account and Terraform
+2️⃣	Write Terraform code to create an S3 bucket
+3️⃣	Upload your HTML file to that bucket
+4️⃣	Host it as a website from S3
+5️⃣	Access your website in browser 🎉
+
+🧰 What You Need
+A working AWS account
+
+Install:
+
+Terraform
+
+AWS CLI (optional but useful)
+
+One HTML file (like index.html) – a simple webpage
+
+🛠️ Step-by-Step Setup
+🔹 Step 1: Configure AWS CLI
+bash
+Copy
+Edit
+aws configure
+Enter:
+
+AWS Access Key ID
+
+Secret Access Key
+
+Default region (e.g., us-east-1)
+
+🔹 Step 2: Create a Terraform File (main.tf)
+hcl
+Copy
+Edit
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_s3_bucket" "static_site" {
+  bucket = "suhani-static-site-demo"
+  acl    = "public-read"
+
+  website {
+    index_document = "index.html"
+    error_document = "error.html"
+  }
+}
+
+resource "aws_s3_bucket_object" "index" {
+  bucket = aws_s3_bucket.static_site.id
+  key    = "index.html"
+  source = "index.html"
+  acl    = "public-read"
+  content_type = "text/html"
+}
+🔸 Make sure index.html file is in the same folder.
+
+🔹 Step 3: Initialize Terraform
+bash
+Copy
+Edit
+terraform init
+👉 This sets up Terraform in your folder.
+
+🔹 Step 4: Apply Your Changes (Deploy)
+bash
+Copy
+Edit
+terraform apply
+Confirm with yes when it asks.
+
+Terraform will:
+
+Create the S3 bucket
+
+Upload your HTML file
+
+Configure it as a website
+
+🔹 Step 5: Access the Website
+After apply, you'll get a link like:
+
+arduino
+Copy
+Edit
+http://suhani-static-site-demo.s3-website-us-east-1.amazonaws.com
+Open it in a browser — ✨ your site is live!
+
+🎁 Bonus: Sample index.html
+Here’s a simple HTML file:
+
+html
+Copy
+Edit
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My First Terraform Website</title>
+</head>
+<body>
+  <h1>Hello from Suhani!</h1>
+  <p>This website is hosted using Terraform + AWS S3 🌍</p>
+</body>
+</html>
+Save it as index.html in the same folder as your .tf file.
+
+✅ What You’ve Learned So Far:
+What infrastructure is (S3 bucket = storage server)
+
+What Terraform is (infra as code)
+
+How to use Terraform to create real things on AWS
+
+How to host your first live site using IaC 🎉
+
+🚀 Want More?
+Next you can try:
+
+Hosting React/Vite website
+
+Adding a custom domain
+
+Deploying EC2 instances
+
+Automating everything with CI/CD
+
